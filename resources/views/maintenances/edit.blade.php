@@ -1,0 +1,81 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container-fluid">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Editar Mantenimiento</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <a href="{{ route('maintenances.show', $maintenance->id) }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fas fa-edit me-1"></i> Formulario de Edición
+        </div>
+        <div class="card-body">
+            <form action="{{ route('maintenances.update', $maintenance->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Activo</label>
+                        <input type="text" class="form-control" value="{{ $maintenance->asset->name }} ({{ $maintenance->asset->type }})" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Tipo de Mantenimiento</label>
+                        <input type="text" class="form-control" value="
+                            @if($maintenance->maintenance_type == 'preventive')
+                                Preventivo
+                            @elseif($maintenance->maintenance_type == 'corrective')
+                                Correctivo
+                            @else
+                                Predictivo
+                            @endif
+                        " disabled>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="diagnosis" class="form-label">Diagnóstico</label>
+                    <textarea class="form-control @error('diagnosis') is-invalid @enderror" id="diagnosis" name="diagnosis" rows="4" required>{{ old('diagnosis', $maintenance->diagnosis) }}</textarea>
+                    @error('diagnosis')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="procedure" class="form-label">Procedimiento Realizado</label>
+                    <textarea class="form-control @error('procedure') is-invalid @enderror" id="procedure" name="procedure" rows="4" required>{{ old('procedure', $maintenance->procedure) }}</textarea>
+                    @error('procedure')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="status" class="form-label">Estado</label>
+                    <select class="form-select @error('status') is-invalid @enderror" id="status" name="status" required>
+                        <option value="in_progress" {{ old('status', $maintenance->status) == 'in_progress' ? 'selected' : '' }}>En Proceso</option>
+                        <option value="completed" {{ old('status', $maintenance->status) == 'completed' ? 'selected' : '' }}>Completado</option>
+                    </select>
+                    @error('status')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <div class="form-text">
+                        Si selecciona "Completado", se registrará la fecha de finalización actual y el activo cambiará a estado "Activo".
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
