@@ -12,9 +12,23 @@
                 <a href="{{ route('assets.edit', $asset->id) }}" class="btn btn-sm btn-outline-warning">
                     <i class="fas fa-edit"></i> Editar
                 </a>
-                <a href="{{ route('maintenances.create', ['asset_id' => $asset->id]) }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fas fa-tools"></i> Crear Mantenimiento
-                </a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-tools"></i> Crear Mantenimiento
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('maintenances.create', ['asset_id' => $asset->id]) }}">
+                                <i class="fas fa-list-alt me-2"></i> Flujo Estándar
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('maintenance-flow.maintenance-form', $asset->id) }}">
+                                <i class="fas fa-star me-2"></i> Flujo Mejorado (Nuevo)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

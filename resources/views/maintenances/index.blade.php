@@ -6,7 +6,7 @@
         <h1 class="h2">Gestión de Mantenimientos</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group me-2">
-                <a href="{{ route('maintenances.create') }}" class="btn btn-sm btn-outline-primary">
+                <a href="{{ route('maintenance-flow.select-asset') }}" class="btn btn-sm btn-outline-primary">
                     <i class="fas fa-plus"></i> Nuevo Mantenimiento
                 </a>
             </div>
