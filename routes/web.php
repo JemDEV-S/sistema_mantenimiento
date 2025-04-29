@@ -59,6 +59,47 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/certificates/{id}/sign', [CertificateController::class, 'sign'])->name('certificates.sign');
     Route::post('/certificates/{id}/sign', [CertificateController::class, 'registerSignature'])->name('certificates.registerSignature');
     Route::get('/certificates/{id}/download', [CertificateController::class, 'download'])->name('certificates.download');
+
+    
+});
+
+// Rutas del nuevo flujo de mantenimiento (agregar a routes/web.php)
+
+// Flujo mejorado de mantenimiento
+Route::middleware(['auth'])->prefix('maintenance-flow')->name('maintenance-flow.')->group(function () {
+    // Selección de activo
+    Route::get('/select-asset', [App\Http\Controllers\MaintenanceFlowController::class, 'selectAsset'])
+        ->name('select-asset');
+    
+    // Búsqueda de activos (para AJAX)
+    Route::get('/search-assets', [App\Http\Controllers\MaintenanceFlowController::class, 'searchAssets'])
+        ->name('search-assets');
+    
+    // Buscar por código QR/barras
+    Route::post('/find-by-code', [App\Http\Controllers\MaintenanceFlowController::class, 'findByCode'])
+        ->name('find-by-code');
+    
+    // Crear nuevo activo
+    Route::get('/create-asset', [App\Http\Controllers\MaintenanceFlowController::class, 'createAsset'])
+        ->name('create-asset');
+    Route::post('/store-asset', [App\Http\Controllers\MaintenanceFlowController::class, 'storeAsset'])
+        ->name('store-asset');
+    
+    // Formulario de mantenimiento
+    Route::get('/maintenance-form/{asset_id}', [App\Http\Controllers\MaintenanceFlowController::class, 'maintenanceForm'])
+        ->name('maintenance-form');
+    Route::post('/store-maintenance/{asset_id}', [App\Http\Controllers\MaintenanceFlowController::class, 'storeMaintenance'])
+        ->name('store-maintenance');
+    
+    // Editar mantenimiento
+    Route::get('/maintenance-form-edit/{maintenance_id}', [App\Http\Controllers\MaintenanceFlowController::class, 'maintenanceFormEdit'])
+        ->name('maintenance-form-edit');
+    Route::put('/update-maintenance/{maintenance_id}', [App\Http\Controllers\MaintenanceFlowController::class, 'updateMaintenance'])
+        ->name('update-maintenance');
+    
+    // Confirmación
+    Route::get('/confirmation/{maintenance_id}', [App\Http\Controllers\MaintenanceFlowController::class, 'confirmation'])
+        ->name('confirmation');
 });
 
 // Route::get('/', function () {
