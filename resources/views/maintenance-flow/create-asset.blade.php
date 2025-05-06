@@ -69,7 +69,7 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="serial" class="form-label">Número de Serie</label>
-                        <input type="text" class="form-control @error('serial') is-invalid @enderror" id="serial" name="serial" value="{{ old('serial') }}">
+                        <input type="text" class="form-control @error('serial') is-invalid @enderror" id="serial" name="serial" value="{{ old('serial') }}" required>
                         @error('serial')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
