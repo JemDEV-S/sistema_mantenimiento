@@ -111,7 +111,7 @@ class MaintenanceFlowController extends Controller
             'type' => 'required|string|max:100',
             'brand' => 'nullable|string|max:100',
             'model' => 'nullable|string|max:100',
-            'serial' => 'required|string|max:100|unique:assets,serial',
+            'serial' => 'nullable|string|max:100|unique:assets,serial',
             'patrimony_code' => 'nullable|string|max:50|unique:assets,patrimony_code',
             'department_id' => 'required|exists:departments,id',
         ]);

@@ -859,9 +859,21 @@
 @endsection
 
 @section('scripts')
+<!-- jQuery (ensure this is loaded first) -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+<!-- Popper.js (required by Bootstrap) -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Summernote JS (load after jQuery and Bootstrap) -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    // Wait for the document to be fully loaded
+    $(document).ready(function() {
         // Inicializar editor Summernote
         $('.summernote').summernote({
             height: 200,
@@ -1267,3 +1279,4 @@
         }
     });
 </script>
+@endsection
