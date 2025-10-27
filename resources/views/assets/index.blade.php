@@ -9,6 +9,9 @@
                 <a href="{{ route('assets.sync') }}" class="btn btn-sm btn-outline-primary">
                     <i class="fas fa-sync"></i> Sincronizar con OCS
                 </a>
+                <a href="{{ route('maintenance-flow.create-asset') }}" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-plus-circle"></i> Registrar Nuevo Activo
+                </a>
             </div>
         </div>
     </div>
@@ -26,6 +29,10 @@
                 <div class="col-md-3">
                     <label for="patrimony_code" class="form-label">Código Patrimonial</label>
                     <input type="text" class="form-control" id="patrimony_code" name="patrimony_code" value="{{ request('patrimony_code') }}" placeholder="Código...">
+                </div>
+                <div class="col-md-3">
+                    <label for="ip_adress" class="form-label">Dirección IP</label>
+                    <input type="text" class="form-control" id="patrimony_code" name="ip_adress" value="{{ request('ip_adress') }}" placeholder="IP...">
                 </div>
                 <div class="col-md-2">
                     <label for="type" class="form-label">Tipo</label>
@@ -69,6 +76,7 @@
                             <th>Marca/Modelo</th>
                             <th>Serial</th>
                             <th>Código Patrimonial</th>
+                            <th>Dirección IP</th>
                             <th>Departamento</th>
                             <th>Estado</th>
                             <th>Última Sincronización</th>
@@ -84,6 +92,8 @@
                                 <td>{{ $asset->brand }} {{ $asset->model }}</td>
                                 <td>{{ $asset->serial }}</td>
                                 <td>{{ $asset->patrimony_code ?? 'N/A' }}</td>
+                                <td>{{ $asset->ip_address ?? 'N/A
+                                    ' }}</td>
                                 <td>{{ $asset->department->name }}</td>
                                 <td>
                                     @if($asset->status == 'active')

@@ -133,6 +133,7 @@ class OcsInventoryService
     /**
      * Synchronize assets from OCS Inventory to local database
      */
+
     public function syncAssets()
     {
         $ocsEquipment = $this->getAllEquipment();
@@ -148,6 +149,20 @@ class OcsInventoryService
             // Assign department (in a real system, this could be based on more complex rules)
             $departmentId = Department::first()->id ?? 1;
             
+            // Get TAG (patrimony code) from hardware table
+            $patrimonyCode = DB::connection('ocs_inventory')
+                ->table('accountinfo')
+                ->where('HARDWARE_ID', $ocsEquip->id)
+                ->value('TAG');
+            
+            // Get IP address from networks table (taking the first available)
+            $ipAddress = DB::connection('ocs_inventory')
+                ->table('networks')
+                ->where('HARDWARE_ID', $ocsEquip->id)
+                ->where('TYPE', 'Ethernet')
+                ->whereNotNull('IPADDRESS')
+                ->value('IPADDRESS');
+            
             if ($asset) {
                 // Update existing asset
                 $asset->update([
@@ -156,6 +171,8 @@ class OcsInventoryService
                     'brand' => $ocsEquip->manufacturer ?? 'Unknown',
                     'model' => $ocsEquip->model ?? 'Unknown',
                     'serial' => $ocsEquip->serial ?? 'Unknown',
+                    'patrimony_code' => $patrimonyCode, // Nuevo campo
+                    'ip_address' => $ipAddress, // Nuevo campo
                     'last_sync' => Carbon::now(),
                 ]);
             } else {
@@ -167,6 +184,8 @@ class OcsInventoryService
                     'brand' => $ocsEquip->manufacturer ?? 'Unknown',
                     'model' => $ocsEquip->model ?? 'Unknown',
                     'serial' => $ocsEquip->serial ?? 'Unknown',
+                    'patrimony_code' => $patrimonyCode, // Nuevo campo
+                    'ip_address' => $ipAddress, // Nuevo campo
                     'department_id' => $departmentId,
                     'status' => 'active',
                     'last_sync' => Carbon::now(),

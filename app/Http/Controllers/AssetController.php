@@ -38,7 +38,7 @@ class AssetController extends Controller
             $query->where('department_id', $request->department_id);
         }
         
-        $assets = $query->paginate(10);
+        $assets = $query->paginate(20);
         $departments = Department::all();
         $assetTypes = Asset::select('type')->distinct()->pluck('type');
         

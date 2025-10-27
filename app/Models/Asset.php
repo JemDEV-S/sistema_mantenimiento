@@ -17,6 +17,7 @@ class Asset extends Model
         'model',
         'serial',
         'patrimony_code', // Campo traducido al inglés
+        'ip_address',
         'status',
         'department_id',
         'last_sync',

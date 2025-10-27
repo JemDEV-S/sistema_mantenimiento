@@ -5,8 +5,8 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Registrar Nuevo Activo</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
-            <a href="{{ route('maintenance-flow.select-asset') }}" class="btn btn-sm btn-outline-secondary">
-                <i class="fas fa-arrow-left"></i> Volver a Selección
+            <a href="{{ route('assets.index') }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Volver a activos
             </a>
         </div>
     </div>
@@ -85,6 +85,13 @@
                 
                 <div class="row mb-3">
                     <div class="col-md-6">
+                        <label for="ip_adreess" class="form-label">Dirección IP</label>
+                        <input type="text" class="form-control @error('ip_address') is-invalid @enderror" id="ip_address" name="ip_address" value="{{ old('ip_address') }}">
+                        @error('ip_address')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
                         <label for="department_id" class="form-label">Departamento *</label>
                         <select class="form-select @error('department_id') is-invalid @enderror" id="department_id" name="department_id" required>
                             <option value="">Seleccionar departamento</option>
@@ -102,7 +109,7 @@
                 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Guardar y Continuar al Mantenimiento
+                        <i class="fas fa-save"></i> Guardar
                     </button>
                 </div>
             </form>

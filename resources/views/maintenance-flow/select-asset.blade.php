@@ -315,8 +315,8 @@
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="serial" class="form-label">Número de Serie *</label>
-                            <input type="text" class="form-control" id="serial" name="serial" required>
+                            <label for="serial" class="form-label">Número de Serie</label>
+                            <input type="text" class="form-control" id="serial" name="serial">
                         </div>
                         <div class="col-md-6">
                             <label for="patrimony_code" class="form-label">Código Patrimonial</label>
